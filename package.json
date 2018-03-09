@@ -1,7 +1,7 @@
 {
   "name": "hyperflux",
   "description": "1 kB JavaScript framework for building web applications.",
-  "version": "0.0.0-alpha1",
+  "version": "0.0.0-alpha2",
   "main": "dist/hyperflux.js",
   "module": "src/index.js",
   "typings": "hyperflux.d.ts",
@@ -29,7 +29,7 @@
     "minify": "uglifyjs dist/hyperflux.js -o dist/hyperflux.js -mc pure_funcs=['Object.defineProperty'] --source-map includeSources,url=hyperflux.js.map",
     "prepare": "npm run build",
     "format": "prettier --semi false --write {src,test}/**/*.js {,test/ts/}*.{ts,tsx}",
-    "release": "npm run build && npm test && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"
+    "prerelease": "npm run build && npm test && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish --tag prerelease"
   },
   "babel": {
     "presets": "env"
