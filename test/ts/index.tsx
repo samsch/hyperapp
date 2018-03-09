@@ -1,4 +1,4 @@
-import { h, app, ActionsType, View } from "hyperapp"
+import { app, ActionsType, OnUpdate } from "hyperapp"
 
 namespace Counter {
   export interface State {
@@ -22,17 +22,9 @@ namespace Counter {
   }
 }
 
-const view: View<Counter.State, Counter.Actions> = (state, actions) => (
-  <main>
-    <div>{state.count}</div>
-    <button onclick={actions.down}>-</button>
-    <button onclick={actions.up}>+</button>
-  </main>
-)
+const onUpdate: OnUpdate<Counter.State, Counter.Actions> = (
+  state,
+  actions
+) => {}
 
-app<Counter.State, Counter.Actions>(
-  Counter.state,
-  Counter.actions,
-  view,
-  document.body
-)
+app<Counter.State, Counter.Actions>(Counter.state, Counter.actions, onUpdate)

@@ -1,4 +1,5 @@
-import { h, app } from "../src"
+/* eslint-env jest */
+import { app } from "../src"
 
 const mockDelay = () => new Promise(resolve => setTimeout(resolve, 50))
 
@@ -15,18 +16,12 @@ test("sync updates", done => {
     up: () => state => ({ value: state.value + 1 })
   }
 
-  const view = state => (
-    <div
-      oncreate={() => {
-        expect(document.body.innerHTML).toBe(`<div>2</div>`)
-        done()
-      }}
-    >
-      {state.value}
-    </div>
-  )
+  const render = state => {
+    expect(state.value).toBe(2)
+    done()
+  }
 
-  app(state, actions, view, document.body).up()
+  app(state, actions, render).up()
 })
 
 test("async updates", done => {
@@ -40,21 +35,18 @@ test("async updates", done => {
       mockDelay().then(() => actions.up(data))
   }
 
-  const view = state => (
-    <div
-      oncreate={() => {
-        expect(document.body.innerHTML).toBe(`<div>2</div>`)
-      }}
-      onupdate={() => {
-        expect(document.body.innerHTML).toBe(`<div>3</div>`)
-        done()
-      }}
-    >
-      {state.value}
-    </div>
-  )
+  let call = 0
+  const render = state => {
+    if (call === 0) {
+      expect(state.value).toBe(2)
+      call = 1
+    } else if (call === 1) {
+      expect(state.value).toBe(3)
+      done()
+    }
+  }
 
-  app(state, actions, view, document.body).upAsync(1)
+  app(state, actions, render).upAsync(1)
 })
 
 test("call action within action", done => {
@@ -74,20 +66,13 @@ test("call action within action", done => {
     })
   }
 
-  const view = state => (
-    <div
-      oncreate={() => {
-        expect(state).toEqual({
-          value: 2,
-          foo: true
-        })
-        expect(document.body.innerHTML).toBe(`<div>2</div>`)
-        done()
-      }}
-    >
-      {state.value}
-    </div>
-  )
+  const render = state => {
+    expect(state).toEqual({
+      value: 2,
+      foo: true
+    })
+    done()
+  }
 
-  app(state, actions, view, document.body).upAndFoo()
+  app(state, actions, render).upAndFoo()
 })

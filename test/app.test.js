@@ -1,4 +1,5 @@
-import { h, app } from "../src"
+/* eslint-env jest */
+import { app } from "../src"
 
 beforeEach(() => {
   document.body.innerHTML = ""
@@ -17,18 +18,12 @@ test("debouncing", done => {
     }
   }
 
-  const view = state => (
-    <div
-      oncreate={() => {
-        expect(document.body.innerHTML).toBe("<div>5</div>")
-        done()
-      }}
-    >
-      {state.value}
-    </div>
-  )
+  const render = state => {
+    expect(state.value).toBe(5)
+    done()
+  }
 
-  app(state, actions, view, document.body).fire()
+  app(state, actions, render).fire()
 })
 
 test("subviews / lazy components", done => {
@@ -37,20 +32,17 @@ test("subviews / lazy components", done => {
     update: () => ({ value: "bar" })
   }
 
-  const Component = () => (state, actions) => (
-    <div
-      oncreate={() => {
-        expect(document.body.innerHTML).toBe("<div>foo</div>")
-        actions.update()
-      }}
-      onupdate={() => {
-        expect(document.body.innerHTML).toBe("<div>bar</div>")
-        done()
-      }}
-    >
-      {state.value}
-    </div>
-  )
+  let call = 0
+  const render = (state, actions) => {
+    if (call === 0) {
+      expect(state.value).toBe("foo")
+      call = 1
+      actions.update()
+    } else if (call === 1) {
+      expect(state.value).toBe("bar")
+      done()
+    }
+  }
 
-  app(state, actions, <Component />, document.body)
+  app(state, actions, render)
 })

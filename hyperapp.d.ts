@@ -1,45 +1,5 @@
 export as namespace hyperapp
 
-/** @namespace [VDOM] */
-
-/** The VDOM representation of an Element.
- *
- * @memberOf [VDOM]
- */
-export interface VNode<Attributes = {}> {
-  nodeName: string
-  attributes?: Attributes
-  children: Array<VNode | string>
-  key: string
-}
-
-/** A Component is a function that returns a custom VNode.
- *
- * @memberOf [VDOM]
- */
-export interface Component<Attributes = {}> {
-  (attributes: Attributes, children: Array<VNode | string>): VNode<Attributes>
-}
-
-/**
- * Possibles children types
- */
-export type Children = VNode | string | number | null;
-
-/** The soft way to create a VNode.
- * @param name      An element name or a Component function
- * @param attributes     Any valid HTML atributes, events, styles, and meta data
- * @param children  The children of the VNode
- * @returns A VNode tree.
- *
- * @memberOf [VDOM]
- */
-export function h<Attributes>(
-  nodeName: Component<Attributes> | string,
-  attributes?: Attributes,
-  ...children: Array<Children | Children[]>,
-): VNode<Attributes>
-
 /** @namespace [App] */
 
 /** The result of an action.
@@ -68,12 +28,12 @@ export type ActionsType<State, Actions> = {
     | ActionsType<any, Actions[P]>
 }
 
-/** The view function describes the application UI as a tree of VNodes.
- * @returns A VNode tree.
+/** A consumer function which can act on changes to the state.
+ *
  * @memberOf [App]
  */
-export interface View<State, Actions> {
-  (state: State, actions: Actions): VNode<object>
+export interface OnUpdate<State, Actions> {
+  (state: State, actions: Actions): any
 }
 
 /** The app() call creates and renders a new application.
@@ -88,17 +48,5 @@ export interface View<State, Actions> {
 export function app<State, Actions>(
   state: State,
   actions: ActionsType<State, Actions>,
-  view: View<State, Actions>,
-  container: Element | null
+  onUpdate: OnUpdate<State, Actions>
 ): Actions
-
-/** @namespace [JSX] */
-
-declare global {
-  namespace JSX {
-    interface Element<Data> extends VNode<object> {}
-    interface IntrinsicElements {
-      [elemName: string]: any
-    }
-  }
-}

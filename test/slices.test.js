@@ -1,4 +1,5 @@
-import { h, app } from "../src"
+/* eslint-env jest */
+import { app } from "../src"
 
 beforeEach(() => {
   document.body.innerHTML = ""
@@ -62,18 +63,12 @@ test("state/actions tree", done => {
     }
   }
 
-  const view = state => (
-    <div
-      oncreate={() => {
-        expect(document.body.innerHTML).toBe(`<div>foobarbaz</div>`)
-        done()
-      }}
-    >
-      {state.foo.bar.baz.value}
-    </div>
-  )
+  const render = state => {
+    expect(state.foo.bar.baz.value).toBe("foobarbaz")
+    done()
+  }
 
-  app(state, actions, view, document.body).foo.bar.baz.fooBarBaz()
+  app(state, actions, render).foo.bar.baz.fooBarBaz()
 
   expect(state).toEqual({ foo: {} })
 })

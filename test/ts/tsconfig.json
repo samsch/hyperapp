@@ -2,12 +2,10 @@
   "compilerOptions": {
     "strict": true,
     "noEmit": true,
-    "jsx": "react",
-    "jsxFactory": "h",
     "baseUrl": "../..",
     "paths": {
       "hyperapp": ["src", "hyperapp.d.ts"]
     }
   },
-  "include": ["*.ts", "*.tsx", "**/*.ts", "**/*.tsx"]
+  "include": ["*.ts", "**/*.ts"]
 }
