@@ -1,7 +1,7 @@
 {
   "name": "hyperflux",
   "description": "1 kB JavaScript framework for building web applications.",
-  "version": "1.0.0",
+  "version": "0.0.0-alpha1",
   "main": "dist/hyperflux.js",
   "module": "src/index.js",
   "typings": "hyperflux.d.ts",
