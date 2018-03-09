@@ -1,4 +1,4 @@
-export as namespace hyperapp
+export as namespace hyperflux
 
 /** @namespace [App] */
 

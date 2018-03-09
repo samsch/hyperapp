@@ -1,28 +1,32 @@
 {
-  "name": "hyperapp",
+  "name": "hyperflux",
   "description": "1 kB JavaScript framework for building web applications.",
-  "version": "1.1.2",
-  "main": "dist/hyperapp.js",
+  "version": "1.0.0",
+  "main": "dist/hyperflux.js",
   "module": "src/index.js",
-  "typings": "hyperapp.d.ts",
+  "typings": "hyperflux.d.ts",
   "license": "MIT",
-  "repository": "hyperapp/hyperapp",
+  "repository": "samsch/hyperflux",
   "files": [
     "src",
     "dist",
-    "hyperapp.d.ts"
+    "hyperflux.d.ts"
   ],
-  "author": "Jorge Bucaran",
+  "author": "Samuel Scheiderich",
   "keywords": [
+    "hyperflux",
+    "redux",
     "hyperapp",
-    "vdom",
-    "virtual-dom"
+    "state",
+    "functional",
+    "flux",
+    "immutable"
   ],
   "scripts": {
     "test": "jest --coverage --no-cache && tsc -p test/ts",
     "build": "npm run bundle && npm run minify",
-    "bundle": "rollup -i src/index.js -o dist/hyperapp.js -m -f umd -n hyperapp",
-    "minify": "uglifyjs dist/hyperapp.js -o dist/hyperapp.js -mc pure_funcs=['Object.defineProperty'] --source-map includeSources,url=hyperapp.js.map",
+    "bundle": "rollup -i src/index.js -o dist/hyperflux.js -m -f umd -n hyperflux",
+    "minify": "uglifyjs dist/hyperflux.js -o dist/hyperflux.js -mc pure_funcs=['Object.defineProperty'] --source-map includeSources,url=hyperflux.js.map",
     "prepare": "npm run build",
     "format": "prettier --semi false --write {src,test}/**/*.js {,test/ts/}*.{ts,tsx}",
     "release": "npm run build && npm test && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"

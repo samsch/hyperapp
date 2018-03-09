@@ -1,4 +1,4 @@
-import { app, ActionsType, OnUpdate } from "hyperapp"
+import { app, ActionsType, OnUpdate } from "hyperflux"
 
 namespace Counter {
   export interface State {
