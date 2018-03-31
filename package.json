@@ -29,7 +29,8 @@
     "minify": "uglifyjs dist/hyperflux.js -o dist/hyperflux.js -mc pure_funcs=['Object.defineProperty'] --source-map includeSources,url=hyperflux.js.map",
     "prepare": "npm run build",
     "format": "prettier --semi false --write {src,test}/**/*.js {,test/ts/}*.{ts,tsx}",
-    "prerelease": "npm run build && npm test && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish --tag prerelease"
+    "prerelease": "npm run build && npm test && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish --tag prerelease",
+    "release": "npm run build && npm test && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish --tag latest"
   },
   "babel": {
     "presets": "env"
