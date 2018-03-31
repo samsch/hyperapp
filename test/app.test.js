@@ -28,6 +28,7 @@ test("debouncing", done => {
 
 test("subviews / lazy components", done => {
   const state = { value: "foo" }
+
   const actions = {
     update: () => ({ value: "bar" })
   }

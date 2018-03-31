@@ -109,9 +109,9 @@ const state = {
 
 ### Actions
 
-The way to change the state is via actions. An action is a unary function (accepts a single argument) expecting a payload. The payload can be anything you want to pass into the action.
+The only way to change the state is via actions. An action is a unary function (accepts a single argument) expecting a payload. The payload can be anything you want to pass into the action.
 
-To update the state, an action must return a partial state object. An action can also return a function that takes the current state and actions and returns a partial state object. Under the hood, Hyperflux wires every function from your actions to schedule a view redraw whenever the state changes.
+To update the state, an action should return a function that takes the current state and actions and returns a partial state object. The new state will be the result of a shallow merge between this object and the current state. Under the hood, Hyperflux wires every function from your actions to schedule a view redraw whenever the state changes.
 
 ```js
 const actions = {
@@ -120,7 +120,15 @@ const actions = {
 }
 ```
 
-If you mutate the state within an action and return it, the view will not be redrawn as you expect. This is because state updates are always immutable. When you return a partial state object from an action, the new state will be the result of a shallow merge between this object and the current state.
+When an action does not use previous state, you can simply return the partial state object instead of a function.
+
+```js
+const actions = {
+  setValue: value => ({ value })
+}
+```
+
+State updates are always immutable. Do not mutate the state object argument within an action and return it — the results are not what you expect (e.g., the view will not be redrawn).
 
 Immutability enables time-travel debugging, helps prevent introducing hard-to-track-down bugs by making state changes more predictable, and allows cheap memoization of components using shallow equality <samp>===</samp> checks.
 
