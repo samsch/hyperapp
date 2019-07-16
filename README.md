@@ -1,8 +1,6 @@
 # Hyperflux
-<!-- 
-[![Travis CI](https://img.shields.io/travis/hyperflux/hyperflux/master.svg)](https://travis-ci.org/hyperflux/hyperflux) [![npm](https://img.shields.io/npm/v/hyperflux.svg)](https://www.npmjs.org/package/hyperflux) [![Slack](https://hyperfluxjs.herokuapp.com/badge.svg)](https://hyperfluxjs.herokuapp.com "Join us") -->
 
-Hyperflux is a JavaScript library for state management, using [Hyperapp](https://github.com/hyperflux/hyperflux)'s code.
+Hyperflux is a JavaScript library for state management, using [Hyperapp](https://github.com/jorgebucaran/hyperapp/tree/V1)'s code.
 
 > Hyperapp is a framework which additionally provides view functionality. If you aren't already using a view library (e.g., React), then you probably want Hyperapp. Hyperflux is more like a replacement for Redux.
 
